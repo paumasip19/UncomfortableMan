@@ -5,15 +5,8 @@ using UnityEngine;
 public class Bar : MonoBehaviour
 {
     public float maxTime;
-    float timeLeft = 0;
-    
-    void Start()
-    {
-        //transform.localScale = new Vector3(0f, 1f);
-        //timeLeft = maxTime;
-    }
+    public float timeLeft = 0;
 
-    // Update is called once per frame
     void Update()
     {
         if(timeLeft > 0)
