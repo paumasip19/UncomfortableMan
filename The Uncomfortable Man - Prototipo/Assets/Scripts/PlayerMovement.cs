@@ -10,20 +10,19 @@ public class PlayerMovement : MonoBehaviour
 
     private float horizontal;
     private float vertical;
-    private CharacterController controller;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+
     }
 
-    void FixedUpdate()
+    void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
         movement = (cam.transform.forward * vertical + cam.transform.right * horizontal).normalized * moveSpeed;
 
-        controller.SimpleMove(movement);
+        transform.Translate(movement * Time.deltaTime);
     }
 }
