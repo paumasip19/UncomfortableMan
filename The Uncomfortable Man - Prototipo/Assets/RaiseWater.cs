@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RaiseWater : MonoBehaviour
 {
-    public Bar bar;
+    public KeyboardBar bar;
 
     public float percentage;
     public float reductor;
