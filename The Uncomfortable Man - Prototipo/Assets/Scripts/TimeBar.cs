@@ -6,6 +6,7 @@ public class TimeBar : MonoBehaviour
 {
     public float maxTime;
     public float timeLeft = 0;
+    public SpriteRenderer sprite;
 
     private void Start()
     {
@@ -14,11 +15,17 @@ public class TimeBar : MonoBehaviour
 
     void Update()
     {
-        if(timeLeft > 0)
+        if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
         }
+        else
+        {
+            sprite.color = Color.grey;
+        }
 
-        transform.localScale = new Vector3(timeLeft / maxTime, 1);
+        if (timeLeft <= maxTime / 4) sprite.color = Color.red;
+
+        transform.localScale = new Vector3(timeLeft / maxTime, 1); 
     }
 }
