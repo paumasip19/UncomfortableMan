@@ -8,6 +8,9 @@ public class PointsByKeyboardBar : MonoBehaviour
     public KeyboardBar keyboardBar;
     public Countdown countdown;
     public TextMeshProUGUI text;
+    public GameObject subPoints;
+
+    public float downMove;
 
     public float percentage;
     public float reductor;
@@ -44,5 +47,7 @@ public class PointsByKeyboardBar : MonoBehaviour
             points = 0;
         }
         else points -= amount;
+        subPoints.GetComponent<RectTransform>().position = new Vector3(downMove, 0, 0);
+        subPoints.GetComponent<Animation>().Play();
     }
 }

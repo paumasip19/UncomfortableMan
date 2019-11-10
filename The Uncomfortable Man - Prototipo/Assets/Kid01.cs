@@ -5,6 +5,7 @@ using UnityEngine;
 public class Kid01 : MonoBehaviour
 {
     Animator animator;
+    AudioSource blah;
 
     public PointsByKeyboardBar keyboardPoints;
     public KeyboardBar bar;
@@ -16,9 +17,12 @@ public class Kid01 : MonoBehaviour
     float waitTime = 4;
     public bool stopped = true;
 
+    bool soundOn = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        blah = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,9 +38,20 @@ public class Kid01 : MonoBehaviour
             else if (animTimer > 0)
             {
                 animTimer -= Time.deltaTime;
+                if (!soundOn)
+                {
+                    blah.Play();
+                    soundOn = true;
+                }
+                
             }
 
-            if (animTimer <= 0) talking = false;
+            if (animTimer <= 0)
+            {
+                talking = false;
+                blah.Stop();
+                soundOn = false;
+            } 
         }
         else
         {
@@ -69,6 +84,5 @@ public class Kid01 : MonoBehaviour
     {
         animator.SetBool("talking", talking);
         animator.SetBool("caught", caught);
-        animator.SetFloat("Blend", animTimer);
     }
 }

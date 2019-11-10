@@ -24,7 +24,7 @@ public class Teacher01 : MonoBehaviour
     int timeTryCatch;
 
     public float maxPreviewTime;
-    float previewTimer;
+    public float previewTimer;
 
     public int caughtProbabilityPercentage;
 
@@ -84,6 +84,7 @@ public class Teacher01 : MonoBehaviour
             lastTime = countdown.intTime;
         }
 
+
         if (notCaught || caught)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Caught"))
@@ -100,6 +101,8 @@ public class Teacher01 : MonoBehaviour
             {
                 notCaught = false;
             }
+
+            caughtProbabilityPercentage = 10;
         }
 
         Animate();     
