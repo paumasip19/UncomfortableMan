@@ -7,6 +7,13 @@ TagManager:
   - Person
   - Done
   - Teacher
+  - Level1
+  - Level2
+  - Level3
+  - Level4
+  - MiniGame1
+  - MiniGame2
+  - MiniGame3
   layers:
   - Default
   - TransparentFX

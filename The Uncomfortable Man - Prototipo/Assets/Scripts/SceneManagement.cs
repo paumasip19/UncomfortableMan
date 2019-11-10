@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public string nameScene;
-
-    private void OnTriggerEnter(Collider other)
+    public string lastScene;
+    public string currentScene;
+    
+    private void Update()
     {
-        if (other.tag == "Player")
-        {
-            SceneManager.LoadScene(nameScene, LoadSceneMode.Single);
-        }
-        
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void loadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
