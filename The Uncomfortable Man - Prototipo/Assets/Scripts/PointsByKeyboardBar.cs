@@ -15,7 +15,7 @@ public class PointsByKeyboardBar : MonoBehaviour
     public int points;
 
     private float initialPos;
-    private bool canPlay;
+    public bool canPlay;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class PointsByKeyboardBar : MonoBehaviour
 
     void Update()
     {
-        if (countdown.intTime > 0 || canPlay)
+        if (countdown.intTime > 0 && canPlay)
         {
             percentage = keyboardBar.transform.lossyScale.x;
             total = percentage / reductor;
@@ -36,9 +36,13 @@ public class PointsByKeyboardBar : MonoBehaviour
         }     
     }
 
-    public void stopInputForSeconds(int timeStopped)
-    {
-        if(timeStopped == 0) canPlay = true;
-        else canPlay = false;
+    public void subtractPoints(int amount)
+    { 
+        int temp = int.Parse(text.text);
+        if (temp - amount < 0)
+        {
+            points = 0;
+        }
+        else points -= amount;
     }
 }
