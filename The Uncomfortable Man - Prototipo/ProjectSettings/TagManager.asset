@@ -14,6 +14,7 @@ TagManager:
   - MiniGame1
   - MiniGame2
   - MiniGame3
+  - PaperBall
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
+        if (manager == null)
+        { 
+            manager = (SceneManagement)GameObject.FindObjectOfType(typeof(SceneManagement));
+        }
     }
 
     void Update()
@@ -31,17 +34,23 @@ public class PlayerMovement : MonoBehaviour
     {
         switch (collision.gameObject.tag)
         {
+            case "Lobby":
+                manager.loadScene("Lobby");
+                break;
             case "Level1":
                 manager.loadScene("School");
                 break;
             case "MiniGame1":
-                manager.loadScene("SchoolMiniGame01");
+                manager.nextScene = "SchoolMiniGame01";
+                manager.loadScene("Instructions");
                 break;
             case "MiniGame2":
-                manager.loadScene("SchoolMiniGame02");
+                manager.nextScene = "SchoolMiniGame02";
+                manager.loadScene("Instructions");
                 break;
             case "MiniGame3":
-                manager.loadScene("SchoolMiniGame03");
+                manager.nextScene = "SchoolMiniGame03";
+                manager.loadScene("Instructions");
                 break;
             default:
                 break;

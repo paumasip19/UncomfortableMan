@@ -55,6 +55,7 @@ public class Kid01 : MonoBehaviour
         }
         else
         {
+            blah.Stop();
             keyboardPoints.canPlay = false;
             bar.canPlay = false;
             if (waitTime >= 0)

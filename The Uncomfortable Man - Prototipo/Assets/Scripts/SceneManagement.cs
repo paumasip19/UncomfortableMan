@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public string lastScene;
-    public string currentScene;
+    public string nextScene;
     
     private void Update()
     {
@@ -16,5 +15,10 @@ public class SceneManagement : MonoBehaviour
     public void loadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void SetScene(string _nextScene)
+    {
+        nextScene = _nextScene;
     }
 }

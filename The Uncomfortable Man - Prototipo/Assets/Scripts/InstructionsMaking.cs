@@ -8,6 +8,8 @@ public class InstructionsMaking : MonoBehaviour
     public SceneManagement manager;
     public Rigidbody[] letters;
 
+    public string[] instrucMessages;
+
     private string message;
     private string sceneToLoad;
     private string lastScene;
@@ -17,15 +19,28 @@ public class InstructionsMaking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(manager == null) manager = (SceneManagement)GameObject.FindObjectOfType(typeof(SceneManagement));
+
+        switch(manager.nextScene)
+        {
+            case "SchoolMiniGame01":
+                message = instrucMessages[0];
+                break;
+            case "SchoolMiniGame02":
+                message = instrucMessages[1];
+                break;
+            case "SchoolMiniGame03":
+                message = instrucMessages[2];
+                break;
+            default:
+                break;
+        }
+
         instructions.Text = message;       
         instructions.AddRigidbody();
         instructions.Mass = 10;
         instructions.IsKinematic = true;
         instructions.UseGravity = true;
-
-        
-        Debug.Log(instructions.Text);
-        Debug.Log(instructions.Text.Length);
     }
 
     // Update is called once per frame
@@ -46,7 +61,7 @@ public class InstructionsMaking : MonoBehaviour
         if (count)
         {
             timer -= Time.deltaTime;
-            if (timer <= 0) manager.loadScene(sceneToLoad);
+            if (timer <= 0) manager.loadScene(manager.nextScene);
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) manager.loadScene(lastScene);

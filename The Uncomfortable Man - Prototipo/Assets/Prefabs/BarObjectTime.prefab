@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 30
   timeLeft: 0
+  sprite: {fileID: 0}
 --- !u!1 &5876042309654296803
 GameObject:
   m_ObjectHideFlags: 0
