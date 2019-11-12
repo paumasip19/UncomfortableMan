@@ -5,6 +5,7 @@ using Cinemachine;
 
 public class Kid02 : MonoBehaviour
 {
+    public Camera cam;
     public CinemachineVirtualCamera normalCam;
     public CinemachineVirtualCamera aimingCam;
 
@@ -23,6 +24,7 @@ public class Kid02 : MonoBehaviour
     public bool canShoot;
 
     private float timer = 4;
+    public Vector3 F;
 
     void Start()
     {
@@ -33,7 +35,10 @@ public class Kid02 : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxis("Mouse X") * 0.3f;
-        
+        Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
+        F = (new Vector3(ray.direction.x, ray.direction.y, ray.direction.z) * force);
+        Debug.Log(cam.transform.forward);
 
         if (Input.GetButton("Fire2"))
         {
@@ -44,7 +49,8 @@ public class Kid02 : MonoBehaviour
             else if(Input.GetButtonDown("Fire1") && canShoot)
             {
                 b = Instantiate(paperBall, shootingPoint.position, shootingPoint.rotation);
-                b.GetComponent<Rigidbody>().AddForce(new Vector3(0, 10, force));
+                
+                b.GetComponent<Rigidbody>().AddForce(F);
                 canShoot = false;
 
             }

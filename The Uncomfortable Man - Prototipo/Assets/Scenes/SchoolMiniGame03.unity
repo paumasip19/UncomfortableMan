@@ -266,7 +266,7 @@ PrefabInstance:
     - target: {fileID: 5136184566316582907, guid: 40743df064109364385c64e183b2f1d9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5136184566316582907, guid: 40743df064109364385c64e183b2f1d9,
         type: 3}
@@ -310,15 +310,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84bab3ef51024948bfd8f1c0efdd680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 2063025292}
   normalCam: {fileID: 177984368}
   aimingCam: {fileID: 601531287}
   paperBall: {fileID: 8554442503596940675, guid: 1bda93eb164aaa64a903833018a9331c,
     type: 3}
   shootingPoint: {fileID: 707969417}
   strength: {fileID: 488171872}
-  force: 10
+  force: 20
   turnSpeed: 100
   horizontal: 0
+  canShoot: 0
+  F: {x: 0, y: 0, z: 0}
 --- !u!4 &43490742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5136184566316582907, guid: 40743df064109364385c64e183b2f1d9,
@@ -1522,7 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52950e10ce92b144898a5ba689ce8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 11
+  maxTime: 61
   time: 0
   intTime: 0
   text: {fileID: 529244177}
@@ -1893,6 +1896,7 @@ MonoBehaviour:
   yBottom: -0.4
   aimingCam: {fileID: 601531286}
   normalCam: {fileID: 177984367}
+  target: {fileID: 2075690587}
 --- !u!1 &631644853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3012,7 +3016,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 3c397fae528bd734495ba3b68d630891,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 3c397fae528bd734495ba3b68d630891,
         type: 3}
@@ -3549,6 +3553,7 @@ RectTransform:
   - {fileID: 861513795}
   - {fileID: 1429958423}
   - {fileID: 1313333651}
+  - {fileID: 2075690588}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3831,19 +3836,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1155130567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbef19acee651cc458fb8b687ac4de74, type: 3}
+  m_Script: {fileID: 11500000, guid: 232909a913713a745abdac36c5ca3887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardBar: {fileID: 0}
-  countdown: {fileID: 529244176}
-  text: {fileID: 1155130569}
-  subPoints: {fileID: 0}
-  downMove: 325
-  percentage: 0
-  reductor: 0.01
-  total: 0
-  points: 0
-  canPlay: 0
 --- !u!1001 &1218601638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4541,14 +4536,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509221356}
-  m_LocalRotation: {x: -0, y: 0.15402025, z: -0, w: 0.98806775}
-  m_LocalPosition: {x: 2.02, y: 1.89, z: 2.33}
+  m_LocalRotation: {x: 0.0000007813386, y: -0.013478503, z: -0.00000000968825, w: 0.9999092}
+  m_LocalPosition: {x: 9.983969, y: 5.8280005, z: -14.781673}
   m_LocalScale: {x: 0.2, y: 0.03, z: 0.1}
   m_Children:
   - {fileID: 711232418}
   - {fileID: 647371804}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 2063025293}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 17.720001, z: 0}
 --- !u!1 &1666227260
 GameObject:
@@ -5274,7 +5269,8 @@ Transform:
   m_LocalRotation: {x: -0.00000077052323, y: 0.16732392, z: 0.00000012991461, w: 0.985902}
   m_LocalPosition: {x: -2.528, y: -3.9379778, z: 19.578}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1509221357}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5408,3 +5404,78 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &2075690587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075690588}
+  - component: {fileID: 2075690590}
+  - component: {fileID: 2075690589}
+  m_Layer: 5
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2075690588
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075690587}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1070492314}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.2, y: 0}
+  m_SizeDelta: {x: 239.6, y: 180.85}
+  m_Pivot: {x: 0.52001655, y: 0.50000006}
+--- !u!114 &2075690589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075690587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 4d041e446a042354b8aa44d7c734e330, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2075690590
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075690587}
+  m_CullTransparentMesh: 0

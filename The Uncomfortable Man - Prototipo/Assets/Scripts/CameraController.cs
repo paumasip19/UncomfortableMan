@@ -19,6 +19,10 @@ public class CameraController : MonoBehaviour
     public GameObject aimingCam;
     public GameObject normalCam;
 
+    private float timer = 4;
+
+    public GameObject target;
+
     void Start()
     {
         composer = GetComponent<Cinemachine.CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineComposer>();
@@ -32,6 +36,7 @@ public class CameraController : MonoBehaviour
             if (Input.GetButton("Fire2"))
             {
                 isAiming = true;
+                target.SetActive(true);
 
                 float vertical = 0;
                 if (!Input.GetButton("Fire1"))
@@ -48,6 +53,7 @@ public class CameraController : MonoBehaviour
             }
             else
             {
+                target.SetActive(false);
                 isAiming = false;
                 composer.m_TrackedObjectOffset = normalComposer;
             }
@@ -64,8 +70,18 @@ public class CameraController : MonoBehaviour
             }
         }
         else
-        { 
-            
+        {
+            target.SetActive(false);
+            if (timer <= 0)
+            {
+                caught = false;
+                timer = 4;
+                target.SetActive(true);
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+            }
         }
         
         Animate();
