@@ -15,6 +15,11 @@ TagManager:
   - MiniGame2
   - MiniGame3
   - PaperBall
+  - Head
+  - Body
+  - Legs
+  - Floor
+  - Diana
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,9 @@ public class InitialCountdown : MonoBehaviour
 
     public GameObject[] objects;
 
+    public CameraController cameraController;
+    public Kid02 kid;
+
     TextMeshProUGUI text;
 
     void Start()
@@ -46,6 +49,9 @@ public class InitialCountdown : MonoBehaviour
                 {
                     objects[i].SetActive(true);
                 }
+                
+                if (cameraController != null) cameraController.enabled = true;
+                if (kid != null) kid.enabled = true;
             }
             else text.text = intTime.ToString();
 

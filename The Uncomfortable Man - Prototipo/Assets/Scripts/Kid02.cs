@@ -15,6 +15,7 @@ public class Kid02 : MonoBehaviour
     public StrengthBar strength;
 
     public float force;
+    public float forceExtra;
 
     public float turnSpeed;
     public float horizontal;
@@ -23,58 +24,72 @@ public class Kid02 : MonoBehaviour
 
     public bool canShoot;
 
-    private float timer = 4;
+    private float timer;
+    public float maxTime;
     public Vector3 F;
 
-    void Start()
-    {
+    bool canPlay;
 
+    private void Start()
+    {
+        canPlay = true;
+        timer = maxTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Mouse X") * 0.3f;
-        Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
-        F = (new Vector3(ray.direction.x, ray.direction.y, ray.direction.z) * force);
-        Debug.Log(cam.transform.forward);
-
-        if (Input.GetButton("Fire2"))
+        if (canPlay)
         {
-            normalCam.m_Priority = 0;
-            aimingCam.m_Priority = 10;
+            horizontal = Input.GetAxis("Mouse X") * 0.3f;
+            Ray ray = Camera.main.ViewportPointToRay(Vector3.one * 0.5f);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 2f);
 
-            if (!Input.GetButtonDown("Fire1")) transform.Rotate(Vector3.up, horizontal * turnSpeed * Time.deltaTime);
-            else if(Input.GetButtonDown("Fire1") && canShoot)
+
+            F = (new Vector3(ray.direction.x, ray.direction.y, ray.direction.z));
+
+            if (Input.GetButton("Fire2"))
             {
-                b = Instantiate(paperBall, shootingPoint.position, shootingPoint.rotation);
-                
-                b.GetComponent<Rigidbody>().AddForce(F);
-                canShoot = false;
+                normalCam.m_Priority = 0;
+                aimingCam.m_Priority = 10;
 
-            }
-        }
-        else
-        {
-            normalCam.m_Priority = 10;
-            aimingCam.m_Priority = 0;
-        }
+                if (!Input.GetButtonDown("Fire1")) transform.Rotate(Vector3.up, horizontal * turnSpeed * Time.deltaTime);
+                else if (Input.GetButtonDown("Fire1") && canShoot)
+                {
+                    b = Instantiate(paperBall, shootingPoint.position, shootingPoint.rotation);
 
-        if (!canShoot)
-        {
-            if (timer <= 0)
-            {
-                canShoot = true;
-                timer = 4;
+                    if (force >= 900) F *= (force + forceExtra);
+                    else F *= force;
+
+                    b.GetComponent<Rigidbody>().AddForce(F);
+                    canShoot = false;
+                }
             }
             else
             {
-                timer -= Time.deltaTime;
+                normalCam.m_Priority = 10;
+                aimingCam.m_Priority = 0;
             }
+
+            if (!canShoot)
+            {
+                if (timer <= 0)
+                {
+                    canShoot = true;
+                    timer = maxTime;
+                }
+                else
+                {
+                    timer -= Time.deltaTime;
+                }
+            }
+
+            force = strength.forcePercentage * 10;
+
         }
+    }
 
-        force = strength.forcePercentage * 10;
-
+    public void stopPlayer()
+    {
+        canPlay = false;
     }
 }

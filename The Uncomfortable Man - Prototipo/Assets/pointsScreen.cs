@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class pointsScreen : MonoBehaviour
 {
     public GameObject[] objects;
 
     public GameObject[] screen;
+
+    public Kid02 kid;
+    public BehaviorExecutor teacher;
+    public CameraController cameraController;
+    public GameObject target;
+    public GameObject bar;
 
     public float[] standartPoints;
 
@@ -24,6 +30,16 @@ public class pointsScreen : MonoBehaviour
     private void Start()
     {
         if (manager == null) manager = (SceneManagement)GameObject.FindObjectOfType(typeof(SceneManagement));
+
+        if (SceneManager.GetActiveScene().name == "SchoolMiniGame03")
+        {
+            kid.stopPlayer();
+            teacher.enabled = false;
+            cameraController.stopPlaying();
+            cameraController.aimingCam.active = false;
+            target.SetActive(false);
+            bar.SetActive(false);
+        }
     }
     void Update()
     {
@@ -53,7 +69,7 @@ public class pointsScreen : MonoBehaviour
             }
 
             finalScore.SetActive(true);
-            messageSpace.SetActive(true);
+            messageSpace.SetActive(true);           
 
             if (Input.GetKeyDown(KeyCode.Space))
             {

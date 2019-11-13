@@ -36,7 +36,7 @@ public class StrengthBar : MonoBehaviour
                 if (timer <= 0)
                 {
                     resumeBar();
-                    timer = 4;
+                    timer = 3;
                 }
                 else
                 {
