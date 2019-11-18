@@ -5,10 +5,6 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     public float sensitivity;
-    public Animator anim;
-
-    public bool isAiming;
-    public bool caught;
 
     public float yTop;
     public float yBottom;
@@ -24,7 +20,11 @@ public class CameraController : MonoBehaviour
     public GameObject target;
     public GameObject bar;
 
+    public Kid02 kid;
+
     bool canPlay = true;
+
+    public GameObject pressedBar;
 
     void Start()
     {
@@ -36,71 +36,42 @@ public class CameraController : MonoBehaviour
     {
         if(canPlay)
         {
-            if (!caught)
+            if (Input.GetButton("Fire2"))
             {
-                if (Input.GetButton("Fire2"))
+                pressedBar.SetActive(false);
+                if(kid.ballCounter > 0) bar.SetActive(true);
+                else bar.SetActive(false);
+
+                target.SetActive(true);
+
+                float vertical = 0;
+                if (!Input.GetButton("Fire1"))
                 {
-                    bar.SetActive(true);
-
-                    isAiming = true;
-                    target.SetActive(true);
-
-                    float vertical = 0;
-                    if (!Input.GetButton("Fire1"))
-                    {
-                        vertical = Input.GetAxis("Mouse Y") * sensitivity;
-                    }
-                    else
-                    {
-                        anim.SetTrigger("shoot");
-                    }
-
-                    composer.m_TrackedObjectOffset.y += vertical;
-                    composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, yBottom, yTop);
-                }
-                else
-                {
-                    bar.SetActive(false);
-                    target.SetActive(false);
-                    isAiming = false;
-                    composer.m_TrackedObjectOffset = normalComposer;
+                    vertical = Input.GetAxis("Mouse Y") * sensitivity;
                 }
 
-                if (aimingCam.activeSelf)
-                {
-                    normalCam.transform.position = aimingCam.transform.position;
-                }
-
-                if (normalCam.activeSelf)
-                {
-                    aimingCam.transform.position = normalCam.transform.position;
-                    aimingCam.transform.rotation = normalCam.transform.rotation;
-                }
+                composer.m_TrackedObjectOffset.y += vertical;
+                composer.m_TrackedObjectOffset.y = Mathf.Clamp(composer.m_TrackedObjectOffset.y, yBottom, yTop);
             }
             else
             {
+                pressedBar.SetActive(true);
+                bar.SetActive(false);
                 target.SetActive(false);
-                if (timer <= 0)
-                {
-                    caught = false;
-                    timer = 4;
-                    target.SetActive(true);
-                }
-                else
-                {
-                    timer -= Time.deltaTime;
-                }
+                composer.m_TrackedObjectOffset = normalComposer;
             }
+
+            if (aimingCam.activeSelf)
+            {
+                normalCam.transform.position = aimingCam.transform.position;
+            }
+
+            if (normalCam.activeSelf)
+            {
+                aimingCam.transform.position = normalCam.transform.position;
+                aimingCam.transform.rotation = normalCam.transform.rotation;
+            } 
         }
-            
-        Animate();
-
-    }
-
-    void Animate()
-    {
-        anim.SetBool("isAiming", isAiming);
-        anim.SetBool("caught", caught);
     }
 
     public void stopPlaying()

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 
 public class Kid02 : MonoBehaviour
 {
+    public Animator anim;
+
     public Camera cam;
     public CinemachineVirtualCamera normalCam;
     public CinemachineVirtualCamera aimingCam;
@@ -30,10 +33,21 @@ public class Kid02 : MonoBehaviour
 
     bool canPlay;
 
+    public bool isAiming;
+    public bool isCharging;
+
+    public int ballCounter;
+    public TextMeshProUGUI textBallCounter;
+
+    public float animTimer;
+
     private void Start()
     {
         canPlay = true;
         timer = maxTime;
+        animTimer = 2.25f;
+
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -52,9 +66,13 @@ public class Kid02 : MonoBehaviour
                 normalCam.m_Priority = 0;
                 aimingCam.m_Priority = 10;
 
+                isAiming = true;
+
                 if (!Input.GetButtonDown("Fire1")) transform.Rotate(Vector3.up, horizontal * turnSpeed * Time.deltaTime);
-                else if (Input.GetButtonDown("Fire1") && canShoot)
+                else if (Input.GetButtonDown("Fire1") && canShoot && ballCounter > 0)
                 {
+                    ballCounter--;
+                    anim.SetTrigger("shoot");
                     b = Instantiate(paperBall, shootingPoint.position, shootingPoint.rotation);
 
                     if (force >= 900) F *= (force + forceExtra);
@@ -68,6 +86,24 @@ public class Kid02 : MonoBehaviour
             {
                 normalCam.m_Priority = 10;
                 aimingCam.m_Priority = 0;
+
+                if (Input.GetKey(KeyCode.E))
+                {
+                    isCharging = true;
+                    if (animTimer <= 0)
+                    {
+                        ballCounter++;
+                        animTimer = 2.25f;
+                    }
+                    else animTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    isCharging = false;
+                    animTimer = 2.25f;
+                }
+
+                isAiming = false;
             }
 
             if (!canShoot)
@@ -84,12 +120,24 @@ public class Kid02 : MonoBehaviour
             }
 
             force = strength.forcePercentage * 10;
-
+            updateBallCounter();
+            Animate();
         }
     }
 
     public void stopPlayer()
     {
         canPlay = false;
+    }
+
+    public void updateBallCounter()
+    {
+        textBallCounter.text = "Balls: " + ballCounter.ToString();
+    }
+
+    void Animate()
+    {
+        anim.SetBool("isAiming", isAiming);
+        anim.SetBool("isCharging", isCharging);
     }
 }

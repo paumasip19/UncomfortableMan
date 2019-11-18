@@ -42,15 +42,15 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case "MiniGame1":
                 manager.nextScene = "SchoolMiniGame01";
-                manager.loadScene("Instructions");
+                manager.loadScene("Instructions01");
                 break;
             case "MiniGame2":
                 manager.nextScene = "SchoolMiniGame02";
-                manager.loadScene("Instructions");
+                manager.loadScene("Instructions02");
                 break;
             case "MiniGame3":
                 manager.nextScene = "SchoolMiniGame03";
-                manager.loadScene("Instructions");
+                manager.loadScene("Instructions03");
                 break;
             default:
                 break;

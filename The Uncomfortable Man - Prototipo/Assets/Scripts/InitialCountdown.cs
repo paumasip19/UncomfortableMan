@@ -13,8 +13,11 @@ public class InitialCountdown : MonoBehaviour
 
     public CameraController cameraController;
     public Kid02 kid;
+    public Teacher02 teacherAnim;
+    public BehaviorExecutor teacherIA;
 
     TextMeshProUGUI text;
+
 
     void Start()
     {
@@ -52,6 +55,8 @@ public class InitialCountdown : MonoBehaviour
                 
                 if (cameraController != null) cameraController.enabled = true;
                 if (kid != null) kid.enabled = true;
+                if (teacherAnim != null) teacherAnim.enabled = true;
+                if (teacherIA != null) teacherIA.enabled = true;
             }
             else text.text = intTime.ToString();
 
